@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script>
+        function maskPassword() {
+            var passwordField = document.getElementById("passwordDisplay");
+            var passwordValue = document.getElementById("password").value;
+            var maskedPassword = "*".repeat(passwordValue.length);
+            passwordField.textContent = maskedPassword;
+        }
+        window.onload = maskPassword;
+    </script>
+</head>
+<body>
+<h1>Account details</h1>
+<p th:text="'Login: ' + ${accountData.login}"/>
+<p>Password: <span id="passwordDisplay">****</span>
+    <input type="hidden" id="password" th:field="*{accountData.password}"/>
+</p>
+<p th:text="'Name: ' + ${accountData.name}"/>
+<p th:text="'Surname: ' + ${accountData.surname}"/>
+<p th:text="'Balance: ' + ${accountData.balance}"/>
+<p th:text="'Currency: ' + ${accountData.currency}"/>
+
+<div>
+    <a th:href="@{/operations(accountId=${accountData.id})}">Go to Operations</a>
+</div>
+<div>
+    <a href="/search">Search an account</a>
+</div>
+<div>
+    <a href="/main">Back to Main Menu</a>
+</div>
+
+</body>
+</html>
+

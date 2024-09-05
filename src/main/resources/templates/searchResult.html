@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Search Result</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <style>
+    .readonly {
+      background-color: #e4dddd;
+      border: 1px solid #dcdcdc;
+    }
+  </style>
+</head>
+<body>
+<h1>Search Result</h1>
+<form th:action="@{/update-account}" th:object="${accountData}" method="post">
+  <input type="hidden" th:field="*{id}" />
+  <p>Login: <input type="text" th:field="*{login}" readonly class="readonly" /></p>
+  <p>Password: <span id="passwordDisplay">****</span>
+    <input type="hidden" id="password" th:field="*{password}"/>
+  </p>
+  <p>Name: <input type="text" th:field="*{name}" /></p>
+  <p>Surname: <input type="text" th:field="*{surname}" /></p>
+  <p>Balance: <input type="text" th:field="*{balance}" readonly class="readonly" /></p>
+  <p>Currency:
+    <select th:field="*{currency}">
+      <option value="EUR" th:selected="${accountData.currency == 'EUR'}">EUR</option>
+      <option value="USD" th:selected="${accountData.currency == 'USD'}">USD</option>
+    </select>
+  </p>
+  <p><input type="submit" value="Update"/> <input type="reset" value="Reset"/></p>
+</form>
+
+<div>
+  <a th:href="@{/operations(accountId=${accountData.id})}">Go to Operations</a>
+</div>
+<div>
+  <a href="/search">Search an account</a>
+</div>
+<div>
+  <a href="/main">Back to Main Menu</a>
+</div>
+
+</body>
+</html>
+
+
+
+
+

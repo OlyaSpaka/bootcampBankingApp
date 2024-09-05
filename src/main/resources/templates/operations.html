@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Operations with Balance</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .readonly {
+            background-color: #e4dddd;
+            border: 1px solid #dcdcdc;
+        }
+
+        .message {
+            color: #56c856;
+        }
+
+        .error-message {
+            color: #cc4444;
+        }
+    </style>
+    <script>
+        function dismissMessage() {
+            document.getElementById('message').style.display = 'none';
+        }
+
+        function dismissError() {
+            document.getElementById('error-message').style.display = 'none';
+        }
+    </script>
+</head>
+<body>
+<h1>Operations with Balance</h1>
+
+<form th:action="@{/perform-operation}" method="post">
+    <input type="hidden" name="accountId" th:value="${accountData.id}"/>
+
+    <p>Balance:
+        <input type="text" name="balance" th:value="${accountData.balance}" readonly class="readonly"/>
+        <span th:text="${accountData.currency}"></span>
+    <div>
+        <span id="message" class="message" th:if="${message}" th:text="${message}"></span>
+        <span id="error-message" class="error-message" th:if="${errorMessage}" th:text="${errorMessage}"></span>
+    </div>
+    </p>
+
+    <h2>Deposit/Withdraw</h2>
+    <p>Operation:
+        <select name="operation">
+            <option value="deposit">Deposit</option>
+            <option value="withdraw">Withdraw</option>
+        </select>
+    </p>
+
+    <p>Amount:
+        <input type="number" name="amount" min="0" step="0.01" required/>
+        <span th:text="${accountData.currency}"></span>
+    </p>
+
+    <p><input type="submit" value="Execute"/> <input type="reset" value="Reset"/></p>
+</form>
+
+<h2>Money Transfer</h2>
+<form th:action="@{/perform-transfer}" method="post">
+    <input type="hidden" name="accountId" th:value="${accountData.id}"/>
+    <input type="hidden" name="fromAccountId" th:value="${accountData.id}"/>
+
+    <p>To Account ID: <input type="number" name="toAccountId" required/></p>
+
+    <p>Amount:
+        <input type="number" name="transferAmount" min="0" step="0.01" required/>
+        <span th:text="${accountData.currency}"></span>
+    </p>
+
+    <p><input type="submit" value="Transfer"/> <input type="reset" value="Reset"/></p>
+</form>
+
+<div>
+    <a href="/search">Search an account</a>
+</div>
+<div>
+    <a href="/main">Back to Main Menu</a>
+</div>
+
+</body>
+</html>
