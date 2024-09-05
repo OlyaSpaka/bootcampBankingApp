@@ -1,0 +1,12 @@
+DROP TABLE IF EXISTS ACCOUNT_DATA;
+
+CREATE TABLE ACCOUNT_DATA
+(
+    id       INT AUTO_INCREMENT PRIMARY KEY,
+    login    VARCHAR NOT NULL,
+    password VARCHAR NOT NULL,
+    name     VARCHAR NOT NULL,
+    surname  VARCHAR NOT NULL,
+    balance  DOUBLE      NOT NULL,
+    currency VARCHAR NOT NULL
+);
